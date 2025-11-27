@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Candy Delights - Shop</title>
+    <title>Ice - Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -400,8 +400,8 @@
                 <div class="logo">
                     <i class="fas fa-ice-cream"></i>
                     <div>
-                        <h1>Ice Candy Delights</h1>
-                        <p class="tagline">Cool treats for hot days!</p>
+                        <h1>Ice Candy & Ice Shopping</h1>
+                        <p class="tagline">Nindot ni sa mainit nga panahon!</p>
                     </div>
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -437,7 +437,7 @@
                     </div>
                     <div class="summary-row">
                         <span>Delivery Fee:</span>
-                        <span>₱20.00</span>
+                        <span>₱10.00</span>
                     </div>
                     <div class="summary-row total">
                         <span>Total:</span>
@@ -507,7 +507,7 @@
         </div>
         
         <footer>
-            <p>© 2023 Ice Candy Delights. All rights reserved.</p>
+            <p>© 2025 Ice Candy Delights. All rights reserved.</p>
             <p>For questions, contact us at: <strong>codymous029@gmail.com</strong></p>
         </footer>
     </div>
@@ -518,10 +518,10 @@
             const products = [
                 {
                     id: 1,
-                    name: "Strawberry Ice Candy",
+                    name: " Ice ",
                     price: 15,
                     image: "https://images.unsplash.com/photo-1570197784943-5d2b71cf5e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                    description: "Sweet and tangy strawberry flavor"
+                    description: "Gahi kaayo di mo magmahay hinog kaayo"
                 },
                 {
                     id: 2,
@@ -688,7 +688,7 @@
                     
                     // Calculate totals
                     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                    const deliveryFee = 20;
+                    const deliveryFee = 10;
                     const total = subtotal + deliveryFee;
                     
                     subtotalElement.textContent = `₱${subtotal.toFixed(2)}`;
