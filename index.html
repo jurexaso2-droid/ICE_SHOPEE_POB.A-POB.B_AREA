@@ -533,7 +533,7 @@
                 {
                     id: 3,
                     name: "Mango Ice Candy",
-                    price: 15,
+                    price: 0,
                     image: "https://images.unsplash.com/photo-1558618666-fcd25856cd55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
                     description: "Not Available Right Now"
                 },
@@ -688,7 +688,7 @@
                     
                     // Calculate totals
                     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                    const deliveryFee = 10;
+                    const deliveryFee = 0;
                     const total = subtotal + deliveryFee;
                     
                     subtotalElement.textContent = `₱${subtotal.toFixed(2)}`;
@@ -780,7 +780,7 @@
                 });
                 
                 const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const deliveryFee = 20;
+                const deliveryFee = 0;
                 const total = subtotal + deliveryFee;
                 
                 const subtotalRow = document.createElement('div');
@@ -831,7 +831,7 @@
                     instructions: formData.get('specialInstructions'),
                     items: cart,
                     subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                    deliveryFee: 20,
+                    deliveryFee: 0,
                     total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 20
                 };
                 
