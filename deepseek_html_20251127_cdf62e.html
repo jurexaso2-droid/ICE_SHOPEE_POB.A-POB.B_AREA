@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice Candy Delights - Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6c5ce7 0%, #8e7cff 100%);
+            color: white;
+            padding: 20px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .delivery-notice {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 30px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .products-section {
+            flex: 3;
+        }
+        
+        .cart-section {
+            flex: 2;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .section-title {
+            color: #6c5ce7;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .product-price {
+            color: #6c5ce7;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .add-to-cart {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #5649c0;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        
+        .remove-item {
+            color: #ff4757;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        
+        .cart-summary {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #6c5ce7;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #eee;
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(135deg, #6c5ce7 0%, #8e7cff 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .checkout-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #6c5ce7;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .confirmation-message {
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+            padding: 30px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+        
+        .empty-cart i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-ice-cream"></i>
+                    <div>
+                        <h1>Ice Candy Delights</h1>
+                        <p class="tagline">Cool treats for hot days!</p>
+                    </div>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="cart-count">0</div>
+                </div>
+            </div>
+            <div class="delivery-notice">
+                📍 Delivery Available: Midsalip Pob. A and B Area Only
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="products-section">
+                <h2 class="section-title">Our Ice Candy Flavors</h2>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div class="cart-section">
+                <h2 class="section-title">Your Cart</h2>
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                </div>
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₱0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery Fee:</span>
+                        <span>₱20.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">₱0.00</span>
+                    </div>
+                    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checkout-form" id="checkoutForm">
+            <h2 class="section-title">Checkout</h2>
+            <form id="orderForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="area">Delivery Area</label>
+                    <select id="area" name="area" required>
+                        <option value="">Select your area</option>
+                        <option value="Midsalip Pob. A">Midsalip Pob. A</option>
+                        <option value="Midsalip Pob. B">Midsalip Pob. B</option>
+                    </select>
+                    <small style="color: #666; margin-top: 5px; display: block;">We currently deliver to Midsalip Pob. A and B areas only</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Complete Address</label>
+                    <textarea id="address" name="address" rows="3" required placeholder="Enter your complete street address"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialInstructions">Special Instructions</label>
+                    <textarea id="specialInstructions" name="specialInstructions" rows="3" placeholder="Any special requests or instructions"></textarea>
+                </div>
+                
+                <div class="order-summary">
+                    <h2 class="section-title">Order Summary</h2>
+                    <div id="orderSummary">
+                        <!-- Order summary will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <button type="submit" class="checkout-btn">Place Order</button>
+            </form>
+        </div>
+        
+        <div class="confirmation-message" id="confirmationMessage">
+            <h2>Order Confirmation</h2>
+            <p>Your order has been placed successfully!</p>
+            <p>An email with your order details has been sent to <strong>codymous029@gmail.com</strong>.</p>
+            <p>We will contact you shortly to confirm your order and delivery details.</p>
+            <button type="button" class="checkout-btn" id="newOrderBtn" style="background: #4CAF50;">Place Another Order</button>
+        </div>
+        
+        <footer>
+            <p>© 2023 Ice Candy Delights. All rights reserved.</p>
+            <p>For questions, contact us at: <strong>codymous029@gmail.com</strong></p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Product data
+            const products = [
+                {
+                    id: 1,
+                    name: "Strawberry Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1570197784943-5d2b71cf5e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Sweet and tangy strawberry flavor"
+                },
+                {
+                    id: 2,
+                    name: "Chocolate Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1593419522309-5be6af8d8034?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Rich and creamy chocolate flavor"
+                },
+                {
+                    id: 3,
+                    name: "Mango Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25856cd55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Sweet and tropical mango flavor"
+                },
+                {
+                    id: 4,
+                    name: "Ube Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1570197784943-5d2b71cf5e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Classic Filipino purple yam flavor"
+                },
+                {
+                    id: 5,
+                    name: "Pandan Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1593419522309-5be6af8d8034?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Fragrant and refreshing pandan flavor"
+                },
+                {
+                    id: 6,
+                    name: "Vanilla Ice Candy",
+                    price: 15,
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25856cd55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                    description: "Classic and creamy vanilla flavor"
+                }
+            ];
+            
+            // Cart data
+            let cart = JSON.parse(localStorage.getItem('iceCandyCart')) || [];
+            
+            // DOM elements
+            const productsGrid = document.getElementById('productsGrid');
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const cartCount = document.querySelector('.cart-count');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const checkoutForm = document.getElementById('checkoutForm');
+            const orderForm = document.getElementById('orderForm');
+            const orderSummary = document.getElementById('orderSummary');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const newOrderBtn = document.getElementById('newOrderBtn');
+            
+            // Render products
+            function renderProducts() {
+                productsGrid.innerHTML = '';
+                
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">₱${product.price.toFixed(2)}</div>
+                            <p>${product.description}</p>
+                            <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                        </div>
+                    `;
+                    productsGrid.appendChild(productCard);
+                });
+                
+                // Add event listeners to Add to Cart buttons
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        addToCart(productId);
+                    });
+                });
+            }
+            
+            // Add product to cart
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                saveCartToStorage();
+                
+                // Show notification
+                showNotification(`${product.name} added to cart!`);
+            }
+            
+            // Remove item from cart
+            function removeFromCart(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                updateCart();
+                saveCartToStorage();
+            }
+            
+            // Update quantity of item in cart
+            function updateQuantity(productId, newQuantity) {
+                if (newQuantity < 1) return;
+                
+                const item = cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = newQuantity;
+                    updateCart();
+                    saveCartToStorage();
+                }
+            }
+            
+            // Update cart UI
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart items
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p>Your cart is empty</p>
+                        </div>
+                    `;
+                    cartSummary.style.display = 'none';
+                } else {
+                    cartItems.innerHTML = '';
+                    cart.forEach(item => {
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">₱${item.price.toFixed(2)}</div>
+                                <div class="quantity-control">
+                                    <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                        `;
+                        cartItems.appendChild(cartItem);
+                    });
+                    
+                    cartSummary.style.display = 'block';
+                    
+                    // Calculate totals
+                    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    const deliveryFee = 20;
+                    const total = subtotal + deliveryFee;
+                    
+                    subtotalElement.textContent = `₱${subtotal.toFixed(2)}`;
+                    totalElement.textContent = `₱${total.toFixed(2)}`;
+                    
+                    // Add event listeners to quantity controls
+                    document.querySelectorAll('.quantity-btn.decrease').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const item = cart.find(item => item.id === id);
+                            if (item) {
+                                updateQuantity(id, item.quantity - 1);
+                            }
+                        });
+                    });
+                    
+                    document.querySelectorAll('.quantity-btn.increase').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const item = cart.find(item => item.id === id);
+                            if (item) {
+                                updateQuantity(id, item.quantity + 1);
+                            }
+                        });
+                    });
+                    
+                    document.querySelectorAll('.quantity-input').forEach(input => {
+                        input.addEventListener('change', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const newQuantity = parseInt(this.value);
+                            updateQuantity(id, newQuantity);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            removeFromCart(id);
+                        });
+                    });
+                }
+            }
+            
+            // Save cart to localStorage
+            function saveCartToStorage() {
+                localStorage.setItem('iceCandyCart', JSON.stringify(cart));
+            }
+            
+            // Show notification
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: #6c5ce7;
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    transition: transform 0.3s, opacity 0.3s;
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 2000);
+            }
+            
+            // Update order summary in checkout form
+            function updateOrderSummary() {
+                orderSummary.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    const summaryItem = document.createElement('div');
+                    summaryItem.className = 'summary-row';
+                    summaryItem.innerHTML = `
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>₱${itemTotal.toFixed(2)}</span>
+                    `;
+                    orderSummary.appendChild(summaryItem);
+                });
+                
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const deliveryFee = 20;
+                const total = subtotal + deliveryFee;
+                
+                const subtotalRow = document.createElement('div');
+                subtotalRow.className = 'summary-row';
+                subtotalRow.innerHTML = `
+                    <span>Subtotal:</span>
+                    <span>₱${subtotal.toFixed(2)}</span>
+                `;
+                orderSummary.appendChild(subtotalRow);
+                
+                const deliveryRow = document.createElement('div');
+                deliveryRow.className = 'summary-row';
+                deliveryRow.innerHTML = `
+                    <span>Delivery Fee:</span>
+                    <span>₱${deliveryFee.toFixed(2)}</span>
+                `;
+                orderSummary.appendChild(deliveryRow);
+                
+                const totalRow = document.createElement('div');
+                totalRow.className = 'summary-row total';
+                totalRow.innerHTML = `
+                    <span>Total:</span>
+                    <span>₱${total.toFixed(2)}</span>
+                `;
+                orderSummary.appendChild(totalRow);
+            }
+            
+            // Event listeners
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length > 0) {
+                    updateOrderSummary();
+                    checkoutForm.style.display = 'block';
+                    checkoutForm.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+            
+            orderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(orderForm);
+                const orderData = {
+                    name: formData.get('fullName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    area: formData.get('area'),
+                    address: formData.get('address'),
+                    instructions: formData.get('specialInstructions'),
+                    items: cart,
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    deliveryFee: 20,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 20
+                };
+                
+                // Create email content
+                const subject = `Ice Candy Order - ${orderData.name}`;
+                let body = `Hello Ice Candy Delights,\n\n`;
+                body += `I would like to place an order for ice candy:\n\n`;
+                body += `ORDER DETAILS:\n`;
+                body += `Name: ${orderData.name}\n`;
+                body += `Email: ${orderData.email}\n`;
+                body += `Phone: ${orderData.phone}\n`;
+                body += `Delivery Area: ${orderData.area}\n`;
+                body += `Address: ${orderData.address}\n\n`;
+                body += `ORDER ITEMS:\n`;
+                
+                orderData.items.forEach(item => {
+                    body += `${item.name} x ${item.quantity} - ₱${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+                
+                body += `\n`;
+                body += `Subtotal: ₱${orderData.subtotal.toFixed(2)}\n`;
+                body += `Delivery Fee: ₱${orderData.deliveryFee.toFixed(2)}\n`;
+                body += `Total: ₱${orderData.total.toFixed(2)}\n\n`;
+                
+                if (orderData.instructions) {
+                    body += `Special Instructions: ${orderData.instructions}\n\n`;
+                }
+                
+                body += `Please confirm my order and let me know the delivery schedule.\n\n`;
+                body += `Thank you!`;
+                
+                // Create mailto link
+                const mailtoLink = `mailto:codymous029@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show confirmation message
+                checkoutForm.style.display = 'none';
+                confirmationMessage.style.display = 'block';
+                confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Clear cart
+                cart = [];
+                updateCart();
+                saveCartToStorage();
+            });
+            
+            // New order button
+            newOrderBtn.addEventListener('click', function() {
+                confirmationMessage.style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Initialize the page
+            renderProducts();
+            updateCart();
+        });
+    </script>
+</body>
+</html>
